@@ -1,0 +1,109 @@
+apply plugin: "groovy"
+apply plugin: "scala"
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'project-report'
+apply plugin: 'pmd'
+apply plugin: 'application'
+apply plugin: 'build-dashboard'
+apply plugin: 'codenarc'
+apply from: './properties.gradle'
+
+
+description = "common util = convienient tools use  for other projects "
+
+applicationDefaultJvmArgs = ["-Dfile.encoding=UTF=8"]
+libsDirName = './target'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+[compileJava, compileTestJava]*.options*.compilerArgs = [
+    "-Xlint:none",
+    "-g",
+    "-encoding",
+    "UTF-8"
+]
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url "http://repo.spring.io/libs-release-local/"}
+    maven { url "http://repo.spring.io/libs-milestone" }
+}
+
+sourceSets {
+    intTest
+    main {
+        java { srcDir 'src/main/java' }
+        groovy { srcDir 'src/main/groovy' }
+        scala { srcDir 'src/main/scala' }
+        resources { srcDir 'src/main/resources' }
+    }
+    test {
+        java { srcDir 'src/test/java' }
+        groovy { srcDir 'src/test/groovy' }
+        scala { srcDir 'src/test/scala' }
+        resources { srcDir 'src/test/resources' }
+    }
+}
+
+dependencies {
+    compile ("org.codehaus.groovy:groovy:${groovyVersion}")
+    compile ("org.springframework:spring-core:${springVersion}")
+    compile ("org.springframework:spring-beans:${springVersion}")
+    compile ("org.springframework:spring-context:${springVersion}")
+    testCompile ("org.springframework:spring-test:${springVersion}")
+
+   
+    compile("org.projectlombok:lombok:${lombokVersion}")
+    compile("com.google.guava:guava:${guavaVersion}"){
+        transitive = true
+    }
+
+    
+    compile("org.jasypt:jasypt:${jasyptVersion}")
+    compile("org.slf4j:slf4j-api:$slf4jVersion")
+    compile("org.slf4j:slf4j-ext:$slf4jVersion")
+    runtime("ch.qos.logback:logback-classic:$logbackVersion")
+    compile("ch.qos.logback:logback-core:$logbackVersion")
+
+    testCompile("org.hamcrest:hamcrest-all:$hamcrestVersion")
+    testCompile("org.mockito:mockito-all:$mockitoVersion")
+    testCompile("junit:junit:$junitVersion")
+    testCompile("org.easytesting:fest-assert:${festAssertVersion}")
+    testCompile("com.googlecode.catch-exception:catch-exception:1.2.0")
+
+        
+}
+
+configurations {
+    all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+        exclude group: "commons-logging"
+        exclude module: "slf4j-log4j12"
+        
+    }
+}
+
+task listJars << {
+    configurations.compile.each { File file -> println file.name }
+}
+
+jar {
+    baseName = 'commonUtil'
+    version =  '0.0.1'
+
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    manifest {
+        attributes 'Implementation-Title': 'Gradle camel-cxf',
+        'Implementation-Version': version,
+        'Built-By': System.getProperty('user.name'),
+        'Built-Date': new Date(),
+        'Built-JDK': System.getProperty('java.version'),
+        'Built-Gradle': gradle.gradleVersion
+    }
+}
+
+task wrapper(type: Wrapper) { gradleVersion = '10.1' }
