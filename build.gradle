@@ -54,9 +54,19 @@ dependencies {
     compile ("org.springframework:spring-core:${springVersion}")
     compile ("org.springframework:spring-beans:${springVersion}")
     compile ("org.springframework:spring-context:${springVersion}")
+    
+    compile ("org.springframework:spring-orm:${springVersion}")
+    compile ("org.springframework:spring-tx:${springVersion}")
+    compile ("org.springframework:spring-aop:${springVersion}")   
+    compile ("org.springframework:spring-aspects:${springVersion}")
+    compile ("org.springframework:spring-webmvc:${springVersion}")
+    
+    compile ("net.sf.ehcache:ehcache-core:${ehcacheVersion}")
     testCompile ("org.springframework:spring-test:${springVersion}")
-
-   
+    compile ("org.springframework.data:spring-data-jpa:${springDataJPAVersion}")
+    compile ("org.hibernate:hibernate-validator:${hibernateValidatorVersion}")
+    compile ("org.hibernate:hibernate-core:${hibernateVersion}")
+    compile ("org.hibernate:hibernate-entitymanager:${hibernateVersion}")
     compile("org.projectlombok:lombok:${lombokVersion}")
     compile("com.google.guava:guava:${guavaVersion}"){
         transitive = true

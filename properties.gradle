@@ -5,12 +5,12 @@ ext {
       catchExceptionVersion = "1.2.0"
       festAssertVersion = "1.4"
    
-      slf4jVersion = "1.7.6"
-      logbackVersion = "1.1.1"
+      slf4jVersion = "1.7.7"
+      logbackVersion = "1.1.2"
    
-      springVersion = "4.0.2.RELEASE"
-      hibernateVersion = "4.3.3.Final"
-      springDataJPAVersion = "1.5.0.RELEASE"
+      springVersion = "4.0.5.RELEASE"
+      hibernateVersion = "4.3.5.Final"
+      springDataJPAVersion = "1.6.0.RELEASE"
       javaxValidationVersion = "1.1.0.Final"
       hibernateValidatorVersion = "5.0.3.Final"
       bonecpVersion = "0.8.0.RELEASE"
@@ -23,4 +23,5 @@ ext {
       mysqlVersion = "5.1.29"   
       postgresqlVersion = "9.3-1101-jdbc41"
       jasyptVersion = "1.9.2"
+      ehcacheVersion = "2.6.8"
 }
