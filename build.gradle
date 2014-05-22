@@ -1,10 +1,8 @@
 apply plugin: "groovy"
-apply plugin: "scala"
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'project-report'
-apply plugin: 'pmd'
 apply plugin: 'application'
 apply plugin: 'build-dashboard'
 apply plugin: 'codenarc'
@@ -16,8 +14,8 @@ description = "common util = convienient tools use  for other projects "
 applicationDefaultJvmArgs = ["-Dfile.encoding=UTF=8"]
 libsDirName = './target'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 [compileJava, compileTestJava]*.options*.compilerArgs = [
     "-Xlint:none",
@@ -25,6 +23,14 @@ targetCompatibility = 1.7
     "-encoding",
     "UTF-8"
 ]
+
+install {
+        repositories.mavenInstaller {
+        pom.version = '0.0.1'
+        pom.artifactId = 'commonUtil'
+        pom.groupId = 'pl.java.scalatech'
+    }
+}
 
 repositories {
     mavenCentral()
@@ -38,13 +44,11 @@ sourceSets {
     main {
         java { srcDir 'src/main/java' }
         groovy { srcDir 'src/main/groovy' }
-        scala { srcDir 'src/main/scala' }
         resources { srcDir 'src/main/resources' }
     }
     test {
         java { srcDir 'src/test/java' }
         groovy { srcDir 'src/test/groovy' }
-        scala { srcDir 'src/test/scala' }
         resources { srcDir 'src/test/resources' }
     }
 }
@@ -107,7 +111,7 @@ jar {
 
     exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
     manifest {
-        attributes 'Implementation-Title': 'Gradle camel-cxf',
+        attributes 'Implementation-Title': 'commonUtil',
         'Implementation-Version': version,
         'Built-By': System.getProperty('user.name'),
         'Built-Date': new Date(),
