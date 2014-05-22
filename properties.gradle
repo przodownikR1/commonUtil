@@ -23,4 +23,5 @@ ext {
       mysqlVersion = "5.1.29"   
       postgresqlVersion = "9.3-1101-jdbc41"
       jasyptVersion = "1.9.2"
+      ehcacheVersion = "2.6.8"
 }
